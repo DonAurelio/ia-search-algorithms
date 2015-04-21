@@ -222,14 +222,19 @@ color: rgb(255, 255, 255);</string>
       </item>
      </layout>
     </widget>
-    <widget class="QLabel" name="labelDelectedSearch">
+    <widget class="QLabel" name="labelSelectedSearch">
      <property name="geometry">
       <rect>
-       <x>420</x>
-       <y>16</y>
+       <x>540</x>
+       <y>10</y>
        <width>331</width>
        <height>41</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Select search from menu</string>
@@ -269,7 +274,7 @@ color: rgb(255, 255, 255);</string>
       <rect>
        <x>7</x>
        <y>10</y>
-       <width>341</width>
+       <width>331</width>
        <height>20</height>
       </rect>
      </property>
@@ -282,7 +287,7 @@ color: rgb(255, 255, 255);</string>
       <rect>
        <x>7</x>
        <y>120</y>
-       <width>341</width>
+       <width>331</width>
        <height>20</height>
       </rect>
      </property>
@@ -393,12 +398,15 @@ color: rgb(255, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>140</y>
        <width>331</width>
-       <height>227</height>
+       <height>311</height>
       </rect>
      </property>
      <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+      </property>
       <item row="0" column="0">
        <widget class="QLabel" name="labelState">
         <property name="font">
@@ -413,7 +421,14 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEditState"/>
+       <widget class="QLineEdit" name="lineEditState">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="labelParent">
@@ -427,9 +442,6 @@ color: rgb(255, 255, 255);</string>
          <string>parent</string>
         </property>
        </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEditParent"/>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="labelAction">
@@ -445,7 +457,14 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="lineEditAction"/>
+       <widget class="QLineEdit" name="lineEditAction">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="labelCost">
@@ -461,7 +480,14 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLineEdit" name="lineEditCost"/>
+       <widget class="QLineEdit" name="lineEditCost">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="labelDepth">
@@ -477,7 +503,14 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QLineEdit" name="lineEditDepth"/>
+       <widget class="QLineEdit" name="lineEditDepth">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="5" column="0">
        <widget class="QLabel" name="labelH">
@@ -493,7 +526,14 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QLineEdit" name="lineEditH"/>
+       <widget class="QLineEdit" name="lineEditH">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="6" column="0">
        <widget class="QLabel" name="labelG">
@@ -509,54 +549,24 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="QLineEdit" name="lineEditG"/>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>331</width>
-       <height>62</height>
-      </rect>
-     </property>
-     <layout class="QFormLayout" name="formLayout_3">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="labelMessage">
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
+       <widget class="QLineEdit" name="lineEditG">
+        <property name="enabled">
+         <bool>true</bool>
         </property>
-        <property name="text">
-         <string>Message</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="labelBattery">
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Battery</string>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEditBattery"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEditMessage"/>
+       <widget class="QLineEdit" name="lineEditParent">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -593,6 +603,9 @@ color: rgb(255, 255, 255);</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButtonMoveRobot">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -606,6 +619,9 @@ color: rgb(255, 255, 255);</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButtonLookGraph">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>120</x>
@@ -619,6 +635,9 @@ color: rgb(255, 255, 255);</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButtonNextStep">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>350</x>
@@ -638,6 +657,9 @@ color: rgb(255, 255, 255);</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButtonFastSearch">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -657,6 +679,9 @@ color: rgb(255, 255, 255);</string>
      </property>
     </widget>
     <widget class="QTableWidget" name="tableWidgetEnvironment">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>370</x>
@@ -665,7 +690,45 @@ color: rgb(255, 255, 255);</string>
        <height>341</height>
       </rect>
      </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>24</number>
+     </attribute>
     </widget>
+    <widget class="QPlainTextEdit" name="plainTextEditRobotStatus">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>331</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <zorder>labelRobotStatus</zorder>
+    <zorder>lineRobotStatus</zorder>
+    <zorder>lineActualNode</zorder>
+    <zorder>labelActualNode</zorder>
+    <zorder>labelDataStatus</zorder>
+    <zorder>line_3</zorder>
+    <zorder>plainTextEditDataStatus</zorder>
+    <zorder>labelEnvironment</zorder>
+    <zorder>lineEnvironmet</zorder>
+    <zorder>layoutWidget</zorder>
+    <zorder>lineRobotStatus_2</zorder>
+    <zorder>labelRobotStatus_2</zorder>
+    <zorder>pushButtonMoveRobot</zorder>
+    <zorder>pushButtonLookGraph</zorder>
+    <zorder>pushButtonNextStep</zorder>
+    <zorder>pushButtonFastSearch</zorder>
+    <zorder>tableWidgetEnvironment</zorder>
+    <zorder>plainTextEditRobotStatus</zorder>
+    <zorder>lineEditParent</zorder>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -736,18 +799,8 @@ color: rgb(255, 255, 255);</string>
     <property name="title">
      <string>Search</string>
     </property>
-    <widget class="QMenu" name="actionUniformCost">
-     <property name="title">
-      <string>Uniform Cost </string>
-     </property>
-    </widget>
-    <widget class="QMenu" name="actionA_2">
-     <property name="title">
-      <string>A*</string>
-     </property>
-    </widget>
-    <addaction name="actionUniformCost"/>
-    <addaction name="actionA_2"/>
+    <addaction name="actionUniformCost_2"/>
+    <addaction name="actionA_3"/>
    </widget>
    <widget class="QMenu" name="menuEnvironment">
     <property name="title">
@@ -791,24 +844,17 @@ color: rgb(255, 255, 255);</string>
     <string>A* </string>
    </property>
   </action>
+  <action name="actionUniformCost_2">
+   <property name="text">
+    <string>Uniform Cost</string>
+   </property>
+  </action>
+  <action name="actionA_3">
+   <property name="text">
+    <string>A*</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>menubar</sender>
-   <signal>triggered(QAction*)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>12</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>7</x>
-     <y>114</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

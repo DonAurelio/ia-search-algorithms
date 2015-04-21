@@ -18,3 +18,6 @@ class Node:
 
 	def __str__(self):
 		return "("+ str(self.state[0]) + "," + str(self.state[1]) + ")"
+
+	def __unicode__(self):
+		return "("+ str(self.state[0]) + "," + str(self.state[1]) + ")"

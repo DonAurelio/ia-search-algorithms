@@ -1,0 +1,2 @@
+sudo apt-get install python-matplotlib
+http://stackoverflow.com/questions/5553342/adding-images-to-a-qtablewidget-in-pyqt

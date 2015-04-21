@@ -1,6 +1,7 @@
 import Queue
 from Node import Node
 from SearchModel import SearchModel
+import Queue
 
 class UniformCost(SearchModel):
 
@@ -19,10 +20,21 @@ class UniformCost(SearchModel):
 	def get_goal_node(self):
 		return self.goal_node
 
+	def get_best_way(self):
+		node = self.goal_node
+		if node != None:
+			way = []
+			for i in range(node.depth):
+				state = node.state
+				way.append(state)
+				node = node.parent
+
+
+
 	def get_init_state(self):
 		return self.init_state
 
-	def start_iterative_search():
+	def start_iterative_search(self):
 		
 		result = 3
 		while result == 3:
@@ -38,7 +50,12 @@ class UniformCost(SearchModel):
 	def start_iterarive_step(self):
 
 		node = self.queue.get()[1]
-		print "Pop: " + str(node)
+				
+		data = {0:node.state,1:node.parent,2:node.action,3:node.cost,4:node.depth}
+		self.observer.update_from_search_node(data)
+
+		self.observer.update_from_search_queue("Pop: " + str(node))
+		
 		if(self.is_goal(node)):
 			self.goal_node = node
 			return 1
@@ -46,17 +63,17 @@ class UniformCost(SearchModel):
 		else:
 			
 			new_nodes = self.expand(node)
-
+			new_nodes_string = "[ "
 			if(self.queue.empty()) and new_nodes == []:
-				print 2
+				return 2
 			else:
 				for a_new_node in new_nodes:
-					print str(a_new_node) + " ; "
 					self.queue.put((a_new_node.cost,a_new_node))
-
+					new_nodes_string = new_nodes_string + str(a_new_node) + " " 
 
 				#Se imprimen los nodos nuevos que se colocaron en la cola
-				print "Push: " + str(new_nodes)
+				new_nodes_string = new_nodes_string + "]"
+				self.observer.update_from_search_queue("Push: " + new_nodes_string)
 
 		return 3
 

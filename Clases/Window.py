@@ -3,6 +3,7 @@ from PyQt4.QtCore import *
 from PyQt4 import uic
 from Observer import Observer
 from LoadFile import LoadFile
+from Robot import Robot
 
 M_Window_UI_class,M_Window_UI_Base_class = uic.loadUiType('gui/MainWindow.ui')
 
@@ -12,6 +13,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		
 		QMainWindow.__init__(self,parent)
 		self.setupUi(self)
+		self.setWindowTitle("Located Me Univalle")
 
 		#Centrar QMainWindow
 		display = QDesktopWidget().screenGeometry()
@@ -24,11 +26,24 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.connect(self.pushButtonLookGraph,SIGNAL("clicked()"),self.look_graph)
 		self.connect(self.pushButtonFastSearch,SIGNAL("clicked()"),self.fast_search)
 		self.connect(self.pushButtonNextStep,SIGNAL("clicked()"),self.step_search)
+		self.connect(self.actionUniformCost_2,SIGNAL("triggered()"),self.select_uniform_cost_search)
 
 		loadFile = LoadFile("env.txt")
-		dimension , environment = loadFile.read()
-		queue_dimension = 0
-		self.draw_environment(environment)
+		self.dimension , self.environment = loadFile.read()
+		
+		self.queue_dimension = 100
+		
+
+	def clear_components(self):
+		self.tableWidgetEnvironment.clear()
+		self.plainTextEditDataStatus.setPlainText("")
+		self.plainTextEditRobotStatus.setPlainText("")
+		self.lineEditState.setText("")
+		self.lineEditParent.setText("")
+		self.lineEditAction.setText("")
+		self.lineEditCost.setText("")
+		self.lineEditDepth.setText("")
+
 
 	def draw_environment(self,environment):
 		matrix = environment
@@ -36,7 +51,41 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.tableWidgetEnvironment.setColumnCount(len(matrix[0]))
 		for i,row in enumerate(matrix):
 			for j,val in enumerate(row):
-				self.tableWidgetEnvironment.setItem(i,j,QTableWidgetItem(str(val)))
+				if self.robot.actual_position == (i,j):
+					self.tableWidgetEnvironment.setItem(i,j,QTableWidgetItem("R"))
+				else:
+					self.tableWidgetEnvironment.setItem(i,j,QTableWidgetItem(str(val)))
+
+	def select_uniform_cost_search(self):
+		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"UniformCost")
+		self.labelSelectedSearch.setText("UniformCost")
+		self.draw_environment(self.environment)
+		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
+
+		self.pushButtonLookGraph.setEnabled(True)
+		self.pushButtonFastSearch.setEnabled(True)
+		self.pushButtonNextStep.setEnabled(True)
+	
+
+	
+	def fast_search(self):
+		result = 3
+		while result == 3:
+			result = self.step_search()
+
+	def step_search(self):
+		result = self.robot.iterative_step()
+		if result == 1:
+			self.plainTextEditRobotStatus.appendPlainText("I already find the goal")
+			self.pushButtonFastSearch.setEnabled(False)
+			self.pushButtonNextStep.setEnabled(False)
+			self.pushButtonMoveRobot.setEnabled(True)
+		elif result == 2:
+			self.plainTextEditRobotStatus.appendPlainText("I cant move more")
+			self.pushButtonFastSearch.setEnabled(False)
+			self.pushButtonNextStep.setEnabled(False)
+		return result
+
 
 	def move_robot(self):
 		pass
@@ -44,8 +93,13 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 	def look_graph(self):
 		pass
 
-	def fast_search(self):
-		pass
+	def update_from_search_node(self,data):
+		self.lineEditState.setText(str(data[0]))
+		self.lineEditParent.setText(str(data[1]))
+		self.lineEditAction.setText(str(data[2]))
+		self.lineEditCost.setText(str(data[3]))
+		self.lineEditDepth.setText(str(data[4]))
 
-	def step_search(self):
-		pass
+	def update_from_search_queue(self,data):
+		self.plainTextEditDataStatus.appendPlainText(str(data))
+
