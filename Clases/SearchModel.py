@@ -1,5 +1,6 @@
 from Node import Node
 
+
 class SearchModel:
 
 	#Enviroments components 
@@ -24,7 +25,7 @@ class SearchModel:
 	#Posible actions
 	Action = {0:'UP', 1:'DOWN', 2:'LEFT', 3:'RIGHT'}
 
-
+	
 	def __init__(self, environment, dimension):
 
 		self.dimension = dimension
@@ -70,11 +71,30 @@ class SearchModel:
 		right = (node.state[0], node.state[1]+1)
 		states = (up,down,left,right)
 
-		for i in range(len(states)):
-			if self.validate_action(states[i]) == True:
-				cost = node.cost + self.result_cost(states[i])
-				node = Node(states[i], node, self.Action[i], cost, node.depth + 1)
-				new_nodes.append(node)
+		if self.validate_action(up):
+			cost = node.get_cost() + self.result_cost(up)
+			new_nodes.append(Node(up, node, self.Action[0], cost, node.depth + 1))
+
+		if self.validate_action(down):
+			cost = node.get_cost() + self.result_cost(down)
+			new_nodes.append(Node(down, node, self.Action[1], cost, node.depth + 1))
+
+		if self.validate_action(left):
+			cost = node.get_cost() + self.result_cost(left)
+			new_nodes.append(Node(left, node, self.Action[2], cost, node.depth + 1))
+
+		if self.validate_action(right):
+			cost = node.get_cost() + self.result_cost(right)
+			new_nodes.append(Node(right, node, self.Action[3], cost, node.depth + 1))
+
+		#Problems with nodes cost calculation and depth
+		#for i in range(len(states)):
+		#	if self.validate_action(states[i]) == True:
+		#		#cost = node.get_cost() + self.result_cost(states[i])
+		#		cost = node.get_cost() + 1
+		#		print(str(node)+":"+str(cost)+" - "+str(i))
+		#		node = Node(states[i], node, self.Action[i], cost, node.depth + 1)
+		#		new_nodes.append(node)
 
 		return new_nodes
 

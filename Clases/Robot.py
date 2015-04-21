@@ -19,6 +19,7 @@ class Robot:
 		self.actual_position =  self.search_algorithm.get_init_state()
 
 
+
 	def download_battery(self):
 		self.battery = self.battery - 1
 	
@@ -26,7 +27,11 @@ class Robot:
 		self.battery = 6
 
 	def get_best_way(self):
-		pass
+		return self.search_algorithm.get_best_way()
+
+	def get_best_direcctions(self):
+		return self.search_algorithm.get_best_direcctions()
+		
 
 	def iterative_step(self):
 		return self.search_algorithm.start_iterarive_step()

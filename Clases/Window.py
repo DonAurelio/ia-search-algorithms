@@ -57,11 +57,13 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 					self.tableWidgetEnvironment.setItem(i,j,QTableWidgetItem(str(val)))
 
 	def select_uniform_cost_search(self):
+		self.clear_components()
 		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"UniformCost")
 		self.labelSelectedSearch.setText("UniformCost")
 		self.draw_environment(self.environment)
 		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
 
+		self.pushButtonMoveRobot.setEnabled(False)
 		self.pushButtonLookGraph.setEnabled(True)
 		self.pushButtonFastSearch.setEnabled(True)
 		self.pushButtonNextStep.setEnabled(True)
@@ -76,7 +78,11 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 	def step_search(self):
 		result = self.robot.iterative_step()
 		if result == 1:
-			self.plainTextEditRobotStatus.appendPlainText("I already find the goal")
+			self.printRobotMassage("I already find the goal")
+			way = self.robot.get_best_way()
+			self.printRobotMassage("The minimal cost way is: " + str(way))
+			directions = self.robot.get_best_direcctions()
+			self.printRobotMassage("The route that I have to do is: " + str(directions))
 			self.pushButtonFastSearch.setEnabled(False)
 			self.pushButtonNextStep.setEnabled(False)
 			self.pushButtonMoveRobot.setEnabled(True)
@@ -92,6 +98,9 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 
 	def look_graph(self):
 		pass
+
+	def printRobotMassage(self,massage):
+		self.plainTextEditRobotStatus.appendPlainText(massage)
 
 	def update_from_search_node(self,data):
 		self.lineEditState.setText(str(data[0]))

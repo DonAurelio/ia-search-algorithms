@@ -22,12 +22,23 @@ class UniformCost(SearchModel):
 
 	def get_best_way(self):
 		node = self.goal_node
-		if node != None:
-			way = []
-			for i in range(node.depth):
-				state = node.state
-				way.append(state)
-				node = node.parent
+		way = []
+		
+		while node != None:	
+			state = node.state
+			way.insert(0,state)
+			node = node.parent
+		return way
+
+	def get_best_direcctions(self):
+		node = self.goal_node
+		direcctions = []
+		
+		while node != None:
+			state = node.action
+			direcctions.insert(0,state)
+			node = node.parent
+		return direcctions
 
 
 
