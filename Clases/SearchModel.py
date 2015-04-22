@@ -1,5 +1,6 @@
 from Node import Node
-
+import networkx as nx 
+import matplotlib.pyplot as plt
 
 class SearchModel:
 
@@ -25,11 +26,16 @@ class SearchModel:
 	#Posible actions
 	Action = {0:'UP', 1:'DOWN', 2:'LEFT', 3:'RIGHT'}
 
+	#Tree search representation
 	
+
+
+
 	def __init__(self, environment, dimension):
 
 		self.dimension = dimension
 		self.env = environment
+		self.tree_graph = nx.DiGraph()
 		
 		
 	def result_cost(self, state):
@@ -126,6 +132,25 @@ class SearchModel:
 		            return (i, j)
 
 		return (-1, -1)
+
+	def add_nodes_to_tree_graph(self,parent,sons):
+		# sons dont have parent, sons is the parent
+		if parent == None:
+			self.tree_graph.add_node(sons.number)
+			
+		else:
+			for son in sons:
+				self.tree_graph.add_node(son.number)
+				self.tree_graph.add_edge(parent.number,son.number)
+				
+		
+		nx.write_dot(self.tree_graph,'test.dot')
+		pos=nx.graphviz_layout(self.tree_graph,prog='dot')
+		nx.draw(self.tree_graph,pos,with_labels=False,arrows=False)
+		plt.show()
+		#plt.savefig('nx_test.png')
+
+
 
 	def start_iterative_search(self):
 		pass

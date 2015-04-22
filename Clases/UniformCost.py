@@ -15,6 +15,7 @@ class UniformCost(SearchModel):
 		self.init_node = Node(self.init_state,None,'',0,0)
 		self.goal_node = None 
 		self.queue.put((0,self.init_node))
+		self.add_nodes_to_tree_graph(None,self.init_node)
 
 
 	def get_goal_node(self):
@@ -86,6 +87,7 @@ class UniformCost(SearchModel):
 				new_nodes_string = new_nodes_string + "]"
 				self.observer.update_from_search_queue("Push: " + new_nodes_string)
 
+			self.add_nodes_to_tree_graph(node,new_nodes)
 		return 3
 
 

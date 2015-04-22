@@ -1,6 +1,11 @@
 class Node:
 
+	#Number that identify a node
+	serial = 0
+
 	def __init__(self,state,parent,action,cost,depth):
+		self.number = Node.serial + 1
+		Node.serial = Node.serial + 1
 		self.state = state 
 		self.parent = parent
 		self.action = action
