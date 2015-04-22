@@ -274,7 +274,7 @@ color: rgb(255, 255, 255);</string>
       <rect>
        <x>7</x>
        <y>10</y>
-       <width>331</width>
+       <width>291</width>
        <height>20</height>
       </rect>
      </property>
@@ -287,7 +287,7 @@ color: rgb(255, 255, 255);</string>
       <rect>
        <x>7</x>
        <y>120</y>
-       <width>331</width>
+       <width>291</width>
        <height>20</height>
       </rect>
      </property>
@@ -317,7 +317,7 @@ color: rgb(255, 255, 255);</string>
     <widget class="QLabel" name="labelDataStatus">
      <property name="geometry">
       <rect>
-       <x>720</x>
+       <x>540</x>
        <y>0</y>
        <width>111</width>
        <height>17</height>
@@ -336,9 +336,9 @@ color: rgb(255, 255, 255);</string>
     <widget class="Line" name="line_3">
      <property name="geometry">
       <rect>
-       <x>720</x>
+       <x>540</x>
        <y>10</y>
-       <width>241</width>
+       <width>161</width>
        <height>20</height>
       </rect>
      </property>
@@ -355,9 +355,9 @@ color: rgb(255, 255, 255);</string>
     <widget class="QPlainTextEdit" name="plainTextEditDataStatus">
      <property name="geometry">
       <rect>
-       <x>720</x>
+       <x>540</x>
        <y>30</y>
-       <width>251</width>
+       <width>161</width>
        <height>341</height>
       </rect>
      </property>
@@ -365,7 +365,7 @@ color: rgb(255, 255, 255);</string>
     <widget class="QLabel" name="labelEnvironment">
      <property name="geometry">
       <rect>
-       <x>370</x>
+       <x>310</x>
        <y>0</y>
        <width>111</width>
        <height>17</height>
@@ -384,9 +384,9 @@ color: rgb(255, 255, 255);</string>
     <widget class="Line" name="lineEnvironmet">
      <property name="geometry">
       <rect>
-       <x>367</x>
+       <x>307</x>
        <y>10</y>
-       <width>321</width>
+       <width>221</width>
        <height>20</height>
       </rect>
      </property>
@@ -399,7 +399,7 @@ color: rgb(255, 255, 255);</string>
       <rect>
        <x>10</x>
        <y>140</y>
-       <width>331</width>
+       <width>291</width>
        <height>311</height>
       </rect>
      </property>
@@ -684,9 +684,9 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="geometry">
       <rect>
-       <x>370</x>
+       <x>310</x>
        <y>30</y>
-       <width>331</width>
+       <width>221</width>
        <height>341</height>
       </rect>
      </property>
@@ -702,7 +702,7 @@ color: rgb(255, 255, 255);</string>
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>331</width>
+       <width>291</width>
        <height>71</height>
       </rect>
      </property>
@@ -710,25 +710,57 @@ color: rgb(255, 255, 255);</string>
       <bool>true</bool>
      </property>
     </widget>
-    <zorder>labelRobotStatus</zorder>
-    <zorder>lineRobotStatus</zorder>
-    <zorder>lineActualNode</zorder>
-    <zorder>labelActualNode</zorder>
-    <zorder>labelDataStatus</zorder>
-    <zorder>line_3</zorder>
-    <zorder>plainTextEditDataStatus</zorder>
-    <zorder>labelEnvironment</zorder>
-    <zorder>lineEnvironmet</zorder>
-    <zorder>layoutWidget</zorder>
-    <zorder>lineRobotStatus_2</zorder>
-    <zorder>labelRobotStatus_2</zorder>
-    <zorder>pushButtonMoveRobot</zorder>
-    <zorder>pushButtonLookGraph</zorder>
-    <zorder>pushButtonNextStep</zorder>
-    <zorder>pushButtonFastSearch</zorder>
-    <zorder>tableWidgetEnvironment</zorder>
-    <zorder>plainTextEditRobotStatus</zorder>
-    <zorder>lineEditParent</zorder>
+    <widget class="QLabel" name="labelTreeGraph">
+     <property name="geometry">
+      <rect>
+       <x>710</x>
+       <y>30</y>
+       <width>261</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="Line" name="line_4">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>10</y>
+       <width>251</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelDataStatus_2">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>0</y>
+       <width>181</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tree representation</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

@@ -32,6 +32,8 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.dimension , self.environment = loadFile.read()
 		
 		self.queue_dimension = 100
+
+		self.update_tree_graph()
 		
 
 	def clear_components(self):
@@ -56,12 +58,20 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 				else:
 					self.tableWidgetEnvironment.setItem(i,j,QTableWidgetItem(str(val)))
 
+	def update_tree_graph(self):
+		pixmap = QPixmap("serch_tree.jpeg")
+		scaled_pixmap = pixmap.scaled(261,341)
+		self.labelTreeGraph.setPixmap(scaled_pixmap)
+		self.labelTreeGraph.show()
+
 	def select_uniform_cost_search(self):
 		self.clear_components()
 		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"UniformCost")
 		self.labelSelectedSearch.setText("UniformCost")
 		self.draw_environment(self.environment)
 		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
+
+		self.update_tree_graph()
 
 		self.pushButtonMoveRobot.setEnabled(False)
 		self.pushButtonLookGraph.setEnabled(True)
@@ -74,6 +84,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		result = 3
 		while result == 3:
 			result = self.step_search()
+			self.update_tree_graph()
 
 	def step_search(self):
 		result = self.robot.iterative_step()
@@ -90,6 +101,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 			self.plainTextEditRobotStatus.appendPlainText("I cant move more")
 			self.pushButtonFastSearch.setEnabled(False)
 			self.pushButtonNextStep.setEnabled(False)
+		self.update_tree_graph()
 		return result
 
 

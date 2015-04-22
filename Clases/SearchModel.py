@@ -2,6 +2,7 @@ from Node import Node
 import networkx as nx 
 import matplotlib.pyplot as plt
 
+#Represent the model of the problem 
 class SearchModel:
 
 	#Enviroments components 
@@ -26,24 +27,28 @@ class SearchModel:
 	#Posible actions
 	Action = {0:'UP', 1:'DOWN', 2:'LEFT', 3:'RIGHT'}
 
-	#Tree search representation
 	
-
-
-
 	def __init__(self, environment, dimension):
 
+		#Dimension of environment problem 
 		self.dimension = dimension
+		#Environment
 		self.env = environment
+		#graphic that contain the grafical tree representation
 		self.tree_graph = nx.DiGraph()
 		
-		
-	def result_cost(self, state):
-		""" Funcion que retorna el costo de pasar por un estado especificado.
-		Mapea una posicion a su costo """
+	
+	#Calculate the cost of state (i,j) according 
+	#to the object that is in (i,j) coodinates
+	def calculate_cost(self, state):
+
+		#extract i component from starte (i,j)
 		i = state[0]
+		#extract j component from state (i,j)
 		j = state[1]
 
+		#Determine the cost depending what object there
+		#is on the position (i,j)
 		if ((self.env[i][j] == self.START)
 			or (self.env[i][j] == self.FREE_SPACE)
 			or (self.env[i][j] == self.GOAL)):
@@ -61,6 +66,7 @@ class SearchModel:
 		if (self.env[i][j] == self.RELOAD):
 			return self.RELOAD_COST
 
+	#Determine if node represents a goal of the problem
 	def is_goal(self,node):
 		state = node.state
 		i = state[0]
@@ -68,7 +74,7 @@ class SearchModel:
 		return (self.env[i][j] == self.GOAL)
 
 
-	#Overrride method from SearchModel
+	#Allow to expand a node (create sons)
 	def expand(self, node):
 		new_nodes = []
 		up = (node.state[0]-1, node.state[1])
@@ -78,25 +84,25 @@ class SearchModel:
 		states = (up,down,left,right)
 
 		if self.validate_action(up):
-			cost = node.get_cost() + self.result_cost(up)
+			cost = node.cost + self.calculate_cost(up)
 			new_nodes.append(Node(up, node, self.Action[0], cost, node.depth + 1))
 
 		if self.validate_action(down):
-			cost = node.get_cost() + self.result_cost(down)
+			cost = node.cost + self.calculate_cost(down)
 			new_nodes.append(Node(down, node, self.Action[1], cost, node.depth + 1))
 
 		if self.validate_action(left):
-			cost = node.get_cost() + self.result_cost(left)
+			cost = node.cost + self.calculate_cost(left)
 			new_nodes.append(Node(left, node, self.Action[2], cost, node.depth + 1))
 
 		if self.validate_action(right):
-			cost = node.get_cost() + self.result_cost(right)
+			cost = node.cost + self.calculate_cost(right)
 			new_nodes.append(Node(right, node, self.Action[3], cost, node.depth + 1))
 
 		#Problems with nodes cost calculation and depth
 		#for i in range(len(states)):
 		#	if self.validate_action(states[i]) == True:
-		#		#cost = node.get_cost() + self.result_cost(states[i])
+		#		#cost = node.get_cost() + self.calculate_cost(states[i])
 		#		cost = node.get_cost() + 1
 		#		print(str(node)+":"+str(cost)+" - "+str(i))
 		#		node = Node(states[i], node, self.Action[i], cost, node.depth + 1)
@@ -105,7 +111,9 @@ class SearchModel:
 		return new_nodes
 
 				
-
+	#Evaluate if an state (i,j) is posible on the 
+	#problem environment (E.g: (-1,2) is not a valid state)
+	#or if there is a wall in state (i,j) then (i,j) is not valid state
 	def validate_action(self, state):
 		i = state[0]
 		j = state[1]
@@ -119,20 +127,23 @@ class SearchModel:
 			return True
 
 
-	# mover a searchmodel
-	def search_start(self):
-    # Busca un item en la matriz, si lo encuentra retorna la  
-    # primera posicion donde fue hallado, en caso contrario retorna -1 
-		dim = 5
-		for i in range(dim):
+	#Search a number into the environment and 
+	#returns the position of that variable
+	#if number is not into the environment
+	#returns (-1,-1)
+	def search_position_of(self, number):
+    	
+		for i in range(self.dimension):
 		    row = self.env[i]
-		    for j in range(dim):
+		    for j in range(self.dimension):
 		        col = row[j]
-		        if col == 0:
+		        if col == number:
 		            return (i, j)
 
 		return (-1, -1)
 
+	#Allow to add nodes to self.tree_graph that is a
+	#graphical representation of create nodes
 	def add_nodes_to_tree_graph(self,parent,sons):
 		# sons dont have parent, sons is the parent
 		if parent == None:
@@ -147,15 +158,19 @@ class SearchModel:
 		nx.write_dot(self.tree_graph,'test.dot')
 		pos=nx.graphviz_layout(self.tree_graph,prog='dot')
 		nx.draw(self.tree_graph,pos,with_labels=False,arrows=False)
-		plt.show()
-		#plt.savefig('nx_test.png')
+		#plt.show()
+		plt.savefig("serch_tree.jpeg")
 
 
-
+	#This a template method that have to define 
+	#the sons of this class accordin to the type of search
+	#that the programer implements 
 	def start_iterative_search(self):
 		pass
 
 
-
+	#This a template method that have to define 
+	#the sons of this class accordin to the type of search
+	#that the programer implements 
 	def start_iterarive_step(self):
 		pass
