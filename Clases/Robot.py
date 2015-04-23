@@ -13,10 +13,11 @@ class Robot:
 		elif search_tipe == "A*h2":
 			pass
 		
-		battery = 6
+		self.battery = 6
 		self.observer = observer
 		self.environment = environment
 		self.actual_position =  self.search_algorithm.get_init_state()
+		self.best_way = []
 
 
 
@@ -27,7 +28,26 @@ class Robot:
 		self.battery = 6
 
 	def get_best_way(self):
-		return self.search_algorithm.get_best_way()
+		self.best_way = self.search_algorithm.get_best_way()
+		return self.best_way
+
+	def move_one_step(self):
+		if self.best_way != []:
+			if self.battery != 0:
+				self.actual_position = self.best_way.pop(0)
+				self.download_battery()
+				self.observer.update_from_robot("Battery state: " + str(self.battery))
+				x_coodinate = self.actual_position[0]
+				y_coordinate = self.actual_position[1]
+				print(x_coodinate)
+				print(y_coordinate)
+				if self.environment[int(x_coodinate)][int(y_coordinate)] == self.search_algorithm.RELOAD:
+					self.reload_battery()
+					self.observer.update_from_robot("Reload battery: " + str(self.battery))
+			else:
+				self.observer.update_from_robot("I can't move, battery state: " + str(self.battery))
+
+
 
 	def get_best_direcctions(self):
 		return self.search_algorithm.get_best_direcctions()
@@ -38,5 +58,8 @@ class Robot:
 
 	def iterative_search(self):
 		return self.search_algorithm.start_iterative_search()
+
+	def show_tree_graph(self):
+		self.search_algorithm.show_tree_graph()
 
 	

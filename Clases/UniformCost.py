@@ -87,7 +87,9 @@ class UniformCost(SearchModel):
 
 		node = self.queue.get()[1]
 				
-		data = {0:node.state,1:node.parent,2:node.action,3:node.cost,4:node.depth}
+		data = {0:node.state,1:node.parent,2:node.action,3:node.cost,
+		4:node.depth,5:node.heuristic,6:node.total_cost}
+
 		self.observer.update_from_search_node(data)
 
 		self.observer.update_from_search_queue("Pop: " + str(node))

@@ -33,6 +33,8 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		
 		self.queue_dimension = 100
 
+		self.robot = None
+
 		self.update_tree_graph()
 		
 
@@ -47,8 +49,8 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.lineEditDepth.setText("")
 
 
-	def draw_environment(self,environment):
-		matrix = environment
+	def draw_environment(self):
+		matrix = self.environment
 		self.tableWidgetEnvironment.setRowCount(len(matrix))
 		self.tableWidgetEnvironment.setColumnCount(len(matrix[0]))
 		for i,row in enumerate(matrix):
@@ -68,7 +70,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.clear_components()
 		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"UniformCost")
 		self.labelSelectedSearch.setText("UniformCost")
-		self.draw_environment(self.environment)
+		self.draw_environment()
 		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
 
 		self.update_tree_graph()
@@ -106,10 +108,11 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 
 
 	def move_robot(self):
-		pass
+		self.robot.move_one_step()
+		self.draw_environment()
 
 	def look_graph(self):
-		pass
+		self.robot.show_tree_graph()
 
 	def printRobotMassage(self,massage):
 		self.plainTextEditRobotStatus.appendPlainText(massage)
@@ -120,7 +123,12 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.lineEditAction.setText(str(data[2]))
 		self.lineEditCost.setText(str(data[3]))
 		self.lineEditDepth.setText(str(data[4]))
+		self.lineEditH.setText(str(data[5]))
+		self.lineEditG.setText(str(data[6]))
 
 	def update_from_search_queue(self,data):
 		self.plainTextEditDataStatus.appendPlainText(str(data))
+
+	def update_from_robot(self,data):
+		self.plainTextEditRobotStatus.appendPlainText(str(data))
 
