@@ -7,3 +7,5 @@ if __name__ == '__main__':
 	application = Window()
 	application.show()
 	app.exec_()
+
+	
