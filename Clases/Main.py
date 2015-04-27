@@ -8,4 +8,10 @@ if __name__ == '__main__':
 	application.show()
 	app.exec_()
 
+def start_app():
+
+	app = QApplication( sys.argv )
+	application = Window()
+	application.show()
+	app.exec_()
 	

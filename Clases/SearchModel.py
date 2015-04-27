@@ -26,9 +26,9 @@ class SearchModel:
 
 	#Posible actions
 	Action = {0:'UP', 1:'DOWN', 2:'LEFT', 3:'RIGHT'}
-
 	
-	def __init__(self, environment, dimension):
+	
+	def __init__(self,observer,environment, dimension):
 
 		#Dimension of environment problem 
 		self.dimension = dimension
@@ -36,6 +36,23 @@ class SearchModel:
 		self.env = environment
 		#graphic that contain the grafical tree representation
 		self.tree_graph = nx.DiGraph()
+		#Is necesary to declare an observer to pass
+		#the informations during the search to user interface
+		self.observer = observer
+		#Represents the initial position of the robot 
+		#into the environment
+		self.init_state = self.search_position_of(0)
+		#Represents the goal node, when the algorithm find 
+		#the goal, this sets this variable 
+		self.goal_node = None 
+		#Represents the first node of the problem 
+		self.init_node = Node(self.init_state,None,'',0,0)
+		#Include the node in the graphic
+		self.add_nodes_to_tree_graph(None,self.init_node)
+		#The number of expand nodes 
+		self.number_expand_nodes = 0
+		#The number of create nodes
+		self.number_create_nodes = 0
 		
 	
 	#Calculate the cost of state (i,j) according 
@@ -117,11 +134,12 @@ class SearchModel:
 	def validate_action(self, state):
 		i = state[0]
 		j = state[1]
-		if self.env[i][j] == self.WALL:
+		real_dimension = self.dimension - 1
+		if (state[0] < 0) or (state[1] < 0):
 			return False
-		elif (state[0] < 0) or (state[1] < 0):
+		elif (state[0] > real_dimension) or (state[1] > real_dimension):
 			return False
-		elif (state[0] > self.dimension) or (state[1] > self.dimension):
+		elif self.env[i][j] == self.WALL:
 			return False
 		else:
 			return True
@@ -147,6 +165,7 @@ class SearchModel:
 	def add_nodes_to_tree_graph(self,parent,sons):
 		# if sons dont have parent, sons is the parent
 		if parent == None:
+
 			self.tree_graph.add_node(sons.number)
 			
 		else:
@@ -164,20 +183,69 @@ class SearchModel:
 		#plt.show()
 		#plt.draw()
 
-		
+	
+	#This is a template method that have to define 
+	#the sons of this class according to the type of search
+	#that the programer implements
 	def show_tree_graph(self):
 		plt.show()
 
 
-	#This a template method that have to define 
+	#This is a template method that have to define 
 	#the sons of this class accordin to the type of search
 	#that the programer implements 
 	def start_iterative_search(self):
 		pass
 
 
-	#This a template method that have to define 
+	#This is a template method that have to define 
 	#the sons of this class accordin to the type of search
 	#that the programer implements 
 	def start_iterarive_step(self):
 		pass
+
+
+	#This is a template method that have to define 
+	#the sons of this class according to the type of search
+	#that the programer implements
+	def get_number_expand_nodes(self):
+		pass
+
+	#This is a template method that have to define 
+	#the sons of this class according to the type of search
+	#that the programer implements
+	def get_number_create_nodes(self):
+		pass
+
+	#This is a template method that have to define 
+	#the sons of this class according to the type of search
+	#that the programer implements
+	#Allow return the goal node 
+	def get_goal_node(self):
+		pass
+
+	#This is a template method that have to define 
+	#the sons of this class according to the type of search
+	#that the programer implements
+	#Create a list with the best states (i,j)
+	#solution. (E.g. [(0,0),(1,2),(1,3)]
+	def get_best_way(self):
+		pass
+
+	#This is a template method that have to define 
+	#the sons of this class according to the type of search
+	#that the programer implements
+	#Create a list with the best direcction "UP","DOWN","LEFT","RIGHT"
+	#solution
+	def get_best_direcctions(self):
+		pass
+
+
+	#This is a template method that have to define 
+	#the sons of this class according to the type of search
+	#that the programer implements
+	#Allow to get the variable self.init_state
+	def get_init_state(self):
+		pass
+
+	

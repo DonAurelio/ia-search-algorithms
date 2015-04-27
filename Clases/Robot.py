@@ -39,25 +39,61 @@ class Robot:
 				self.observer.update_from_robot("Battery state: " + str(self.battery))
 				x_coodinate = self.actual_position[0]
 				y_coordinate = self.actual_position[1]
-				print(x_coodinate)
-				print(y_coordinate)
 				if self.environment[int(x_coodinate)][int(y_coordinate)] == self.search_algorithm.RELOAD:
 					self.reload_battery()
 					self.observer.update_from_robot("Reload battery: " + str(self.battery))
+				if self.environment[int(x_coodinate)][int(y_coordinate)] == self.search_algorithm.GOAL:
+					self.observer.update_from_robot("I already be on the goal")
 			else:
 				self.observer.update_from_robot("I can't move, battery state: " + str(self.battery))
+
+		
 
 
 
 	def get_best_direcctions(self):
 		return self.search_algorithm.get_best_direcctions()
-		
 
 	def iterative_step(self):
-		return self.search_algorithm.start_iterarive_step()
+		result = self.search_algorithm.start_iterarive_step()
+		if result == 1:
+		
+			way = self.get_best_way()
+			directions = self.get_best_direcctions()
+			number_expand_nodes = self.search_algorithm.get_number_expand_nodes()
+			number_create_nodes = self.search_algorithm.get_number_create_nodes()
 
+			self.observer.update_from_robot("I already find the goal")
+			self.observer.update_from_robot("The minimal cost way is: " + str(way))
+			self.observer.update_from_robot("The route that I have to do is: " + str(directions))
+			self.observer.update_from_robot("The number of expand nodes is: " + str(number_expand_nodes))
+			self.observer.update_from_robot("The number of create nodes is: " + str(number_create_nodes))
+		
+		elif result == 2:
+			self.observer.update_from_robot("The Queue is empty, I can't find solution")
+		
+		return result
+		
 	def iterative_search(self):
-		return self.search_algorithm.start_iterative_search()
+		result =  self.search_algorithm.start_iterative_search()
+		
+		if result == 1:
+
+			way = self.get_best_way()
+			directions = self.get_best_direcctions()
+			number_expand_nodes = self.search_algorithm.get_number_expand_nodes()
+			number_create_nodes = self.search_algorithm.get_number_create_nodes()
+
+			self.observer.update_from_robot("I already find the goal")
+			self.observer.update_from_robot("The minimal cost way is: " + str(way))
+			self.observer.update_from_robot("The route that I have to do is: " + str(directions))
+			self.observer.update_from_robot("The number of expand nodes is: " + str(number_expand_nodes))
+			self.observer.update_from_robot("The number of create nodes is: " + str(number_create_nodes))
+		
+		elif result == 2:
+			self.observer.update_from_robot("The Queue is empty, I can't find solution")
+		
+		return result
 
 	def show_tree_graph(self):
 		self.search_algorithm.show_tree_graph()

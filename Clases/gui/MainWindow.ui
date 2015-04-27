@@ -838,20 +838,20 @@ color: rgb(255, 255, 255);</string>
     <property name="title">
      <string>Environment</string>
     </property>
-    <addaction name="actionCreate"/>
-    <addaction name="actionLook_Actual"/>
+    <addaction name="actionCreateEnvironment"/>
+    <addaction name="actionLookActualEnvironment"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSearch"/>
    <addaction name="menuEnvironment"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionCreate">
+  <action name="actionCreateEnvironment">
    <property name="text">
     <string>Create</string>
    </property>
   </action>
-  <action name="actionLook_Actual">
+  <action name="actionLookActualEnvironment">
    <property name="text">
     <string>Look Actual</string>
    </property>

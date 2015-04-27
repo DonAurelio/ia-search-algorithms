@@ -6,7 +6,7 @@ class LoadFile:
 		self.dimension = 0
 
 	def read(self):
-		env_file = open(self.file_name)
+		env_file = open(self.file_name,'r')
 		self.dimension = int(env_file.readline()) 
 
 		# INICIALIZAR MATRIZ
@@ -22,6 +22,7 @@ class LoadFile:
 			for j in range(self.dimension):
 				self.env[i][j] = int(colums[j])
 
+		env_file.close()
 		return self.dimension , self.env
 
 
