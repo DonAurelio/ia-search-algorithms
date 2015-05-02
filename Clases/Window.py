@@ -146,7 +146,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.connect(self.actionCreateEnvironment,SIGNAL("triggered()"),self.display_environment_editor)
 		self.connect(self.actionLookActualEnvironment,SIGNAL("triggered()"),self.look_actual_environment)
 
-		self.queue_dimension = 100
+		self.queue_dimension = 0
 
 		self.robot = None
 

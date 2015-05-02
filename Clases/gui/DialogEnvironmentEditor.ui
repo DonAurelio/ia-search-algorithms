@@ -343,7 +343,7 @@ color: rgb(255, 255, 255);</string>
     <number>80</number>
    </property>
    <property name="singleStep">
-    <number>2</number>
+    <number>1</number>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButtonEnvironmentSize">
@@ -430,7 +430,7 @@ color: rgb(255, 255, 255);</string>
      <x>450</x>
      <y>350</y>
      <width>178</width>
-     <height>28</height>
+     <height>29</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
