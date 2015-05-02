@@ -8,8 +8,8 @@ import Queue
 #according to the SearchModel, this contains the model of de problem
 class UniformCost(SearchModel):
 
-	def __init__(self,observer, enviroment, dimension, queue_dimension):
-		SearchModel.__init__(self,observer,enviroment,dimension)
+	def __init__(self,observer, enviroment, dimension, queue_dimension,avoid_cycle):
+		SearchModel.__init__(self,observer,enviroment,dimension,avoid_cycle)
 		
 		#Queue is an especific data estructure to implement
 		#uniform cost search

@@ -17,6 +17,32 @@ class DialogMessage(QDialog,D_Message_UI_class):
 		self.plainTextEditMessage.setPlainText(message)
 		self.exec_()
 
+D_Option_UI_class, D_Option_UI_Base_class = uic.loadUiType('gui/DialogOption.ui')
+
+class DialogOption(QDialog,D_Option_UI_class):
+
+	def __init__(self,parent=None):
+		QDialog.__init__(self,parent)
+		self.setupUi(self)
+
+		self.connect(self.pushButtonYes,SIGNAL('clicked()'),self.set_taken_option_true)
+		self.connect(self.pushButtonNo,SIGNAL('clicked()'),self.set_taken_option_false)
+
+	def display_option_message(self,message):
+		self.plainTextEditMessage.setPlainText(message)
+		self.exec_()
+
+	def set_taken_option_true(self):
+		self.taken_option = True
+		self.reject()
+
+	def set_taken_option_false(self):
+		self.taken_option = False
+		self.reject()
+
+	def get_taken_option(self):
+		return self.taken_option
+
 
 
 D_Editor_UI_class, D_Editor_UI_Base_class = uic.loadUiType('gui/DialogEnvironmentEditor.ui')
@@ -141,10 +167,13 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.connect(self.pushButtonLookGraph,SIGNAL("clicked()"),self.look_graph)
 		self.connect(self.pushButtonFastSearch,SIGNAL("clicked()"),self.fast_search)
 		self.connect(self.pushButtonNextStep,SIGNAL("clicked()"),self.step_search)
-		self.connect(self.actionUniformCost_2,SIGNAL("triggered()"),self.select_uniform_cost_search)
+		
+		self.connect(self.actionUniformCostSearch,SIGNAL("triggered()"),self.select_uniform_cost_search)
+		self.connect(self.actionARectDistance,SIGNAL('triggered()'),self.select_a_rect_distance_search)
 		self.connect(self.actionExit,SIGNAL("triggered()"),exit)
 		self.connect(self.actionCreateEnvironment,SIGNAL("triggered()"),self.display_environment_editor)
 		self.connect(self.actionLookActualEnvironment,SIGNAL("triggered()"),self.look_actual_environment)
+
 
 		self.queue_dimension = 0
 
@@ -162,6 +191,8 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.lineEditAction.setText("")
 		self.lineEditCost.setText("")
 		self.lineEditDepth.setText("")
+		self.lineEditH.setText("")
+		self.lineEditG.setText("")
 
 	def load_environment(self):
 		loadFile = LoadFile("env.txt")
@@ -195,19 +226,53 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 	def select_uniform_cost_search(self):
 
 		self.load_environment()
-		
 		self.clear_components()
-		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"UniformCost")
-		self.labelSelectedSearch.setText("UniformCost")
+
+		self.optionDialog = DialogOption()
+		self.optionDialog.display_option_message("Do you want avoid cycles")
+		option_response = self.optionDialog.get_taken_option()
+		
+		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"UniformCost",option_response)
+
+		if option_response:
+			self.labelSelectedSearch.setText("UniformCost avoiding cycles")
+		else:
+			self.labelSelectedSearch.setText("UniformCost with cycles")
+
 		self.draw_environment()
 		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
-
 		self.update_tree_graph()
 
 		self.pushButtonMoveRobot.setEnabled(False)
 		self.pushButtonLookGraph.setEnabled(True)
 		self.pushButtonFastSearch.setEnabled(True)
 		self.pushButtonNextStep.setEnabled(True)
+
+	def select_a_rect_distance_search(self):
+
+		self.load_environment()
+		self.clear_components()
+
+		self.optionDialog = DialogOption()
+		self.optionDialog.display_option_message("Do you want avoid cycles")
+		option_response = self.optionDialog.get_taken_option()
+		
+		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"A*h1",option_response)
+
+		if option_response:
+			self.labelSelectedSearch.setText("A* Rect Disntance avoiding cycles")
+		else:
+			self.labelSelectedSearch.setText("A* Rect Disntance with cycles")
+
+		self.draw_environment()
+		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
+		self.update_tree_graph()
+
+		self.pushButtonMoveRobot.setEnabled(False)
+		self.pushButtonLookGraph.setEnabled(True)
+		self.pushButtonFastSearch.setEnabled(True)
+		self.pushButtonNextStep.setEnabled(True)
+
 	
 
 	

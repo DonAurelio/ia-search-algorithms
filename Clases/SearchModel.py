@@ -28,7 +28,7 @@ class SearchModel:
 	Action = {0:'UP', 1:'DOWN', 2:'LEFT', 3:'RIGHT'}
 	
 	
-	def __init__(self,observer,environment, dimension):
+	def __init__(self,observer,environment,dimension,avoid_cycles):
 
 		#Dimension of environment problem 
 		self.dimension = dimension
@@ -46,13 +46,15 @@ class SearchModel:
 		#the goal, this sets this variable 
 		self.goal_node = None 
 		#Represents the first node of the problem 
-		self.init_node = Node(self.init_state,None,'',0,0)
+		self.init_node = Node(self.init_state,None,'',0,0,None)
 		#Include the node in the graphic
 		self.add_nodes_to_tree_graph(None,self.init_node)
 		#The number of expand nodes 
 		self.number_expand_nodes = 0
 		#The number of create nodes
 		self.number_create_nodes = 0
+		#is a flag that indicate if the search can avoid cycles
+		self.avoid_cycles = avoid_cycles
 		
 	
 	#Calculate the cost of state (i,j) according 
@@ -100,21 +102,21 @@ class SearchModel:
 		right = (node.state[0], node.state[1]+1)
 		states = (up,down,left,right)
 
-		if self.validate_action(up):
+		if self.validate_action(up,node):
 			cost = node.cost + self.calculate_cost(up)
-			new_nodes.append(Node(up, node, self.Action[0], cost, node.depth + 1))
+			new_nodes.append(Node(up, node, self.Action[0], cost, node.depth + 1,None))
 
-		if self.validate_action(down):
+		if self.validate_action(down,node):
 			cost = node.cost + self.calculate_cost(down)
-			new_nodes.append(Node(down, node, self.Action[1], cost, node.depth + 1))
+			new_nodes.append(Node(down, node, self.Action[1], cost, node.depth + 1,None))
 
-		if self.validate_action(left):
+		if self.validate_action(left,node):
 			cost = node.cost + self.calculate_cost(left)
-			new_nodes.append(Node(left, node, self.Action[2], cost, node.depth + 1))
+			new_nodes.append(Node(left, node, self.Action[2], cost, node.depth + 1,None))
 
-		if self.validate_action(right):
+		if self.validate_action(right,node):
 			cost = node.cost + self.calculate_cost(right)
-			new_nodes.append(Node(right, node, self.Action[3], cost, node.depth + 1))
+			new_nodes.append(Node(right, node, self.Action[3], cost, node.depth + 1,None))
 
 		#Problems with nodes cost calculation and depth
 		#for i in range(len(states)):
@@ -131,10 +133,15 @@ class SearchModel:
 	#Evaluate if an state (i,j) is posible on the 
 	#problem environment (E.g: (-1,2) is not a valid state)
 	#or if there is a wall in state (i,j) then (i,j) is not valid state
-	def validate_action(self, state):
+	def validate_action(self,state,parent_node):
 		i = state[0]
 		j = state[1]
 		real_dimension = self.dimension - 1
+		
+		if self.avoid_cycles == True:
+			if self.check_cycle(state,parent_node):
+				return False
+
 		if (state[0] < 0) or (state[1] < 0):
 			return False
 		elif (state[0] > real_dimension) or (state[1] > real_dimension):
@@ -143,6 +150,19 @@ class SearchModel:
 			return False
 		else:
 			return True
+
+
+	#Check if the state is in the node or node parents 
+	#The purpose of this method is check if the given statet
+	#is in the branch of a given none
+	def check_cycle(self,state,parent_node):
+		while parent_node != None:
+			if parent_node.state == state:
+				return True
+			parent_node = parent_node.parent
+		return False
+
+
 
 
 	#Search a number into the environment and 

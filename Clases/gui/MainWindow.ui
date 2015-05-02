@@ -831,8 +831,9 @@ color: rgb(255, 255, 255);</string>
     <property name="title">
      <string>Search</string>
     </property>
-    <addaction name="actionUniformCost_2"/>
-    <addaction name="actionA_3"/>
+    <addaction name="actionUniformCostSearch"/>
+    <addaction name="actionARectDistance"/>
+    <addaction name="actionAManhattanDistance"/>
    </widget>
    <widget class="QMenu" name="menuEnvironment">
     <property name="title">
@@ -876,14 +877,34 @@ color: rgb(255, 255, 255);</string>
     <string>A* </string>
    </property>
   </action>
-  <action name="actionUniformCost_2">
-   <property name="text">
-    <string>Uniform Cost</string>
-   </property>
-  </action>
   <action name="actionA_3">
    <property name="text">
     <string>A*</string>
+   </property>
+  </action>
+  <action name="actionUniformCostWithCycles">
+   <property name="text">
+    <string>With Cycles</string>
+   </property>
+  </action>
+  <action name="actionUniformCostWithoutCycles">
+   <property name="text">
+    <string>Without Cycles</string>
+   </property>
+  </action>
+  <action name="actionUniformCostSearch">
+   <property name="text">
+    <string>Unifor Cost </string>
+   </property>
+  </action>
+  <action name="actionARectDistance">
+   <property name="text">
+    <string>A* Rect Distance</string>
+   </property>
+  </action>
+  <action name="actionAManhattanDistance">
+   <property name="text">
+    <string>A* Manhattan Distance</string>
    </property>
   </action>
  </widget>

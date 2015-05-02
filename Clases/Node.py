@@ -5,7 +5,7 @@ class Node:
 	#Number that identify a node (static clas variable)
 	serial = 0
 
-	def __init__(self,state,parent,action,cost,depth,heuristic=None):
+	def __init__(self,state,parent,action,cost,depth,heuristic):
 		self.number = Node.serial + 1
 		Node.serial = Node.serial + 1
 		#Componets for a common node 
@@ -16,8 +16,8 @@ class Node:
 		self.depth  = depth
 		#Extracomponest including heuristic h(n)
 		#and total cost g(n) = h(n) + cost(n)
-		if heuristic == None:
-			self.heuristic = None
+		self.heuristic = heuristic
+		if self.heuristic == None:
 			self.total_cost = None
 		else:
 			self.total_cost = heuristic + self.cost
