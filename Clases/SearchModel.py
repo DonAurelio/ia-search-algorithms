@@ -1,5 +1,6 @@
 from Node import Node
 import networkx as nx 
+from os import remove
 import matplotlib.pyplot as plt
 
 #Represent the model of the problem 
@@ -194,17 +195,7 @@ class SearchModel:
 				self.tree_graph.add_edge(parent.number,son.number)
 				
 		
-		#This part was comment for problems becasuse 
-		#If i want to do this repeatedly the graphic take a rare shape
-		#nx.write_dot(self.tree_graph,'test.dot')
-		#pos=nx.graphviz_layout(self.tree_graph,prog='dot')
-		#nx.draw(self.tree_graph,pos,with_labels=True,arrows=False)
 		
-			
-		#plt.savefig("serch_tree.jpeg")
-		#plt.show()
-		#plt.draw()
-
 	
 	#This is a template method that have to define 
 	#the sons of this class according to the type of search
@@ -213,6 +204,7 @@ class SearchModel:
 		nx.write_dot(self.tree_graph,'test.dot')
 		pos=nx.graphviz_layout(self.tree_graph,prog='dot')
 		nx.draw(self.tree_graph,pos,with_labels=True,arrows=False)
+		plt.savefig("serch_tree.jpeg")
 		plt.show()
 
 

@@ -76,6 +76,7 @@ class DialogEnvironmentEditor(QDialog,D_Editor_UI_class):
 	def __init__(self,parent=None):
 		QDialog.__init__(self,parent=parent)
 		self.setupUi(self)
+
 		self.environment_size = 0
 		self.environment = []
 		self.dictionary_objects = {"Inicio":0,"Pared":1,"Espacio":2,"Resvaloso":3,"Personas":4,"Restrindigo":5,"Recarga":6,"Meta":7}
@@ -204,8 +205,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 
 		self.robot = None
 
-		self.update_tree_graph()
-		
+			
 
 	def clear_components(self):
 		self.tableWidgetEnvironment.clear()
@@ -220,7 +220,10 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.lineEditG.setText("")
 
 	def load_environment(self):
-		loadFile = LoadFile("env.txt")
+		
+		environment_file_name = QFileDialog.getOpenFileName(parent=self)
+
+		loadFile = LoadFile(environment_file_name)
 		self.dimension , self.environment = loadFile.read()
 
 
@@ -235,6 +238,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 				else:
 					self.tableWidgetEnvironment.setItem(i,j,QTableWidgetItem(str(val)))
 
+
 	def look_actual_environment(self):
 		loadFile = LoadFile("env.txt")
 		dimension , environment = loadFile.read()
@@ -245,8 +249,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		for i,row in enumerate(matrix):
 			for j,val in enumerate(row):
 				self.tableWidgetEnvironment.setItem(i,j,QTableWidgetItem(str(val)))
-
-		
+	
 
 	def select_uniform_cost_search(self):
 
@@ -266,8 +269,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 
 		self.draw_environment()
 		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
-		self.update_tree_graph()
-
+		
 		self.pushButtonMoveRobot.setEnabled(False)
 		self.pushButtonLookGraph.setEnabled(True)
 		self.pushButtonFastSearch.setEnabled(True)
@@ -298,8 +300,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 
 		self.draw_environment()
 		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
-		self.update_tree_graph()
-
+		
 		self.pushButtonMoveRobot.setEnabled(False)
 		self.pushButtonLookGraph.setEnabled(True)
 		self.pushButtonFastSearch.setEnabled(True)
@@ -329,8 +330,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 
 		self.draw_environment()
 		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
-		self.update_tree_graph()
-
+		
 		self.pushButtonMoveRobot.setEnabled(False)
 		self.pushButtonLookGraph.setEnabled(True)
 		self.pushButtonFastSearch.setEnabled(True)
@@ -342,7 +342,6 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		result = 3
 		while result == 3:
 			result = self.step_search()
-			self.update_tree_graph()
 		return result
 
 	def step_search(self):
@@ -354,7 +353,6 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		elif result == 2:
 			self.pushButtonFastSearch.setEnabled(False)
 			self.pushButtonNextStep.setEnabled(False)
-		self.update_tree_graph()
 		return result
 		
 
@@ -372,12 +370,6 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		editor = DialogEnvironmentEditor(self)
 		editor.exec_()
 
-
-	def update_tree_graph(self):
-		pixmap = QPixmap("serch_tree.jpeg")
-		scaled_pixmap = pixmap.scaled(261,341)
-		self.labelTreeGraph.setPixmap(scaled_pixmap)
-		self.labelTreeGraph.show()
 
 	def update_from_search_node(self,data):
 		self.lineEditState.setText(str(data[0]))

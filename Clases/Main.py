@@ -4,6 +4,8 @@ from Window import Window
 
 if __name__ == '__main__':
 	app = QApplication( sys.argv )
+	#file_name = QFileDialog()
+
 	application = Window()
 	application.show()
 	app.exec_()
