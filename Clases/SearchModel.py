@@ -186,12 +186,13 @@ class SearchModel:
 	def add_nodes_to_tree_graph(self,parent,sons):
 		# if sons dont have parent, sons is the parent
 		if parent == None:
-
-			self.tree_graph.add_node(sons.number)
+			atrributes = {'state':sons.state,'action':sons.action,'cost':sons.cost,'heuristic':sons.heuristic,'total_cost':sons.total_cost}
+			self.tree_graph.add_node(sons.number,atrributes)
 			
 		else:
 			for son in sons:
-				self.tree_graph.add_node(son.number)
+				atrributes = {'state':son.state,'action':son.action,'cost':son.cost,'heuristic':son.heuristic,'total_cost':son.total_cost}
+				self.tree_graph.add_node(son.number,atrributes)
 				self.tree_graph.add_edge(parent.number,son.number)
 				
 		
@@ -204,6 +205,18 @@ class SearchModel:
 		nx.write_dot(self.tree_graph,'test.dot')
 		pos=nx.graphviz_layout(self.tree_graph,prog='dot')
 		nx.draw(self.tree_graph,pos,with_labels=True,arrows=False)
+
+		for i in nx.nodes(self.tree_graph):
+			x,y=pos[i]
+			node_atrributes = self.tree_graph.node[i]
+			text = str(node_atrributes['state']) + "\n"
+			text += str(node_atrributes['action']) + "\n"
+			text += "c(n)=" + str(node_atrributes['cost']) + "\n"
+			text += "h(n)=" + str(node_atrributes['heuristic']) + "\n"
+			text += "g(n)=" + str(node_atrributes['total_cost']) + "\n"
+			#bbox=dict(facecolor='red', alpha=0)
+			plt.text(x,y+10,s=text, fontsize=7,horizontalalignment='left')
+
 		plt.savefig("serch_tree.jpeg")
 		plt.show()
 
