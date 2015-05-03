@@ -199,7 +199,7 @@ class SearchModel:
 		nx.draw(self.tree_graph,pos,with_labels=True,arrows=False)
 		
 			
-		plt.savefig("serch_tree.jpeg")
+		#plt.savefig("serch_tree.jpeg")
 		#plt.show()
 		#plt.draw()
 

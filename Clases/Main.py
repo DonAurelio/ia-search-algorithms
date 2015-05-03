@@ -14,4 +14,3 @@ def start_app():
 	application = Window()
 	application.show()
 	app.exec_()
-	

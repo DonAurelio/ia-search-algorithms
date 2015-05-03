@@ -225,9 +225,9 @@ color: rgb(255, 255, 255);</string>
     <widget class="QLabel" name="labelSelectedSearch">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>490</x>
        <y>10</y>
-       <width>331</width>
+       <width>391</width>
        <height>41</height>
       </rect>
      </property>
@@ -899,7 +899,7 @@ color: rgb(255, 255, 255);</string>
   </action>
   <action name="actionARectDistance">
    <property name="text">
-    <string>A* Rect Distance</string>
+    <string>A* Straight Line Distance</string>
    </property>
   </action>
   <action name="actionAManhattanDistance">

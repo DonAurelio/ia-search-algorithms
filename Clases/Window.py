@@ -173,6 +173,7 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.connect(self.actionExit,SIGNAL("triggered()"),exit)
 		self.connect(self.actionCreateEnvironment,SIGNAL("triggered()"),self.display_environment_editor)
 		self.connect(self.actionLookActualEnvironment,SIGNAL("triggered()"),self.look_actual_environment)
+		self.connect(self.actionAManhattanDistance,SIGNAL("triggered()"),self.select_manhattan_distance_search)
 
 
 		self.queue_dimension = 0
@@ -248,6 +249,31 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.pushButtonFastSearch.setEnabled(True)
 		self.pushButtonNextStep.setEnabled(True)
 
+	def select_manhattan_distance_search(self):
+
+		self.load_environment()
+		self.clear_components()
+
+		self.optionDialog = DialogOption()
+		self.optionDialog.display_option_message("Do you want avoid cycles")
+		option_response = self.optionDialog.get_taken_option()
+		
+		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"A*h2",option_response)
+
+		if option_response:
+			self.labelSelectedSearch.setText("A* Manhattan Distance avoiding cycles")
+		else:
+			self.labelSelectedSearch.setText("A* Manhattan Distance with cycles")
+
+		self.draw_environment()
+		self.plainTextEditRobotStatus.appendPlainText("Ready .......")
+		self.update_tree_graph()
+
+		self.pushButtonMoveRobot.setEnabled(False)
+		self.pushButtonLookGraph.setEnabled(True)
+		self.pushButtonFastSearch.setEnabled(True)
+		self.pushButtonNextStep.setEnabled(True)
+
 	def select_a_rect_distance_search(self):
 
 		self.load_environment()
@@ -260,9 +286,9 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"A*h1",option_response)
 
 		if option_response:
-			self.labelSelectedSearch.setText("A* Rect Disntance avoiding cycles")
+			self.labelSelectedSearch.setText("A* Straight Line Distance avoiding cycles")
 		else:
-			self.labelSelectedSearch.setText("A* Rect Disntance with cycles")
+			self.labelSelectedSearch.setText("A* Straight Line Distance with cycles")
 
 		self.draw_environment()
 		self.plainTextEditRobotStatus.appendPlainText("Ready .......")

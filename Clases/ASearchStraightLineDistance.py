@@ -2,7 +2,7 @@ from UniformCost import UniformCost
 from Node import Node
 from math import sqrt
 
-class ASearchRectDistance(UniformCost):
+class ASearchStraightLineDistance(UniformCost):
 
 	def __init__(self,observer, enviroment, dimension, queue_dimension,avoid_cycle,numerator,denominator):
 		UniformCost.__init__(self,observer, enviroment, dimension, queue_dimension,avoid_cycle)

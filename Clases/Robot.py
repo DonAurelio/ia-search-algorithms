@@ -1,6 +1,7 @@
 from Observer import Observer
 from UniformCost import UniformCost
-from ASearchRectDistance import ASearchRectDistance
+from ASearchStraightLineDistance import ASearchStraightLineDistance
+from ASearchManhattanDistance import ASearchManhattanDistance
 
 class Robot:
 
@@ -10,9 +11,9 @@ class Robot:
 		if search_tipe == "UniformCost":
 			self.search_algorithm = UniformCost(observer,environment,dimension,queue_dimension,avoid_cycle)
 		elif search_tipe == "A*h1":
-			self.search_algorithm = ASearchRectDistance(observer,environment,dimension,queue_dimension,avoid_cycle,numerator,denominator)
+			self.search_algorithm = ASearchStraightLineDistance(observer,environment,dimension,queue_dimension,avoid_cycle,numerator,denominator)
 		elif search_tipe == "A*h2":
-			pass
+			self.search_algorithm = ASearchManhattanDistance(observer,environment,dimension,queue_dimension,avoid_cycle,numerator,denominator)
 		
 		self.battery = 6
 		self.observer = observer
