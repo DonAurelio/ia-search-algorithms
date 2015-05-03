@@ -194,9 +194,11 @@ class SearchModel:
 				self.tree_graph.add_edge(parent.number,son.number)
 				
 		
-		nx.write_dot(self.tree_graph,'test.dot')
-		pos=nx.graphviz_layout(self.tree_graph,prog='dot')
-		nx.draw(self.tree_graph,pos,with_labels=True,arrows=False)
+		#This part was comment for problems becasuse 
+		#If i want to do this repeatedly the graphic take a rare shape
+		#nx.write_dot(self.tree_graph,'test.dot')
+		#pos=nx.graphviz_layout(self.tree_graph,prog='dot')
+		#nx.draw(self.tree_graph,pos,with_labels=True,arrows=False)
 		
 			
 		#plt.savefig("serch_tree.jpeg")
@@ -208,6 +210,9 @@ class SearchModel:
 	#the sons of this class according to the type of search
 	#that the programer implements
 	def show_tree_graph(self):
+		nx.write_dot(self.tree_graph,'test.dot')
+		pos=nx.graphviz_layout(self.tree_graph,prog='dot')
+		nx.draw(self.tree_graph,pos,with_labels=True,arrows=False)
 		plt.show()
 
 

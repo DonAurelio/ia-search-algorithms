@@ -7,6 +7,30 @@ from LoadFile import LoadFile
 from Robot import Robot
 from SearchModel import SearchModel
 
+D_ASearchValues_UI_class, D_AsearchValues_UI_Base_class = uic.loadUiType('gui/DialogASearchValues.ui')
+
+class DialogASearchValues(QDialog,D_ASearchValues_UI_class):
+
+	def __init__(self,parent=None):
+		QDialog.__init__(self,parent)
+		self.setupUi(self)
+
+		self.connect(self.pushButtonOk,SIGNAL('clicked()'),self.close)
+	
+	def show_request_message(self,message):
+		self.plainTextEditMessage.setPlainText(message)
+		self.exec_()
+
+	def get_numerator(self):
+		return self.doubleSpinBoxNumerator.value()
+
+	def get_denominator(self):
+		return self.doubleSpinBoxDenominator.value()
+
+	def close(self):
+		self.reject()
+
+
 D_Message_UI_class, D_Message_UI_Base_class = uic.loadUiType('gui/DialogMessage.ui')
 
 class DialogMessage(QDialog,D_Message_UI_class):
@@ -257,8 +281,15 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.optionDialog = DialogOption()
 		self.optionDialog.display_option_message("Do you want avoid cycles")
 		option_response = self.optionDialog.get_taken_option()
+
+		message = "Please specify the numerator and denominator to complement the heuristic method"
+		aSearchValueDialog = DialogASearchValues()
+		aSearchValueDialog.show_request_message(message)
+		numerator = aSearchValueDialog.get_numerator()
+		denominator = aSearchValueDialog.get_denominator()
 		
-		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"A*h2",option_response)
+
+		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"A*h2",option_response,numerator,denominator)
 
 		if option_response:
 			self.labelSelectedSearch.setText("A* Manhattan Distance avoiding cycles")
@@ -282,8 +313,14 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 		self.optionDialog = DialogOption()
 		self.optionDialog.display_option_message("Do you want avoid cycles")
 		option_response = self.optionDialog.get_taken_option()
+
+		message = "Please specify the numerator and denominator to complement the heuristic method"
+		aSearchValueDialog = DialogASearchValues()
+		aSearchValueDialog.show_request_message(message)
+		numerator = aSearchValueDialog.get_numerator()
+		denominator = aSearchValueDialog.get_denominator()
 		
-		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"A*h1",option_response)
+		self.robot = Robot(self,self.environment,self.dimension,self.queue_dimension,"A*h1",option_response,numerator,denominator)
 
 		if option_response:
 			self.labelSelectedSearch.setText("A* Straight Line Distance avoiding cycles")
@@ -301,7 +338,6 @@ class Window(QMainWindow,M_Window_UI_class,Observer):
 
 	
 
-	
 	def fast_search(self):
 		result = 3
 		while result == 3:

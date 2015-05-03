@@ -258,7 +258,7 @@ color: rgb(255, 255, 255);</string>
     <string>Ok</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -276,7 +276,11 @@ color: rgb(255, 255, 255);</string>
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+     <widget class="QDoubleSpinBox" name="doubleSpinBoxNumerator">
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_2">
@@ -286,10 +290,19 @@ color: rgb(255, 255, 255);</string>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+     <widget class="QDoubleSpinBox" name="doubleSpinBoxDenominator">
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
+  <zorder>plainTextEditMessage</zorder>
+  <zorder>widgetHeader</zorder>
+  <zorder>pushButtonOk</zorder>
+  <zorder>layoutWidget</zorder>
+  <zorder>doubleSpinBoxDenominator</zorder>
  </widget>
  <resources/>
  <connections/>
