@@ -1,5 +1,7 @@
 from Node import Node
 import networkx as nx 
+from networkx.drawing.nx_agraph import write_dot
+from networkx.drawing.nx_agraph import graphviz_layout
 from os import remove
 import matplotlib.pyplot as plt
 
@@ -202,8 +204,8 @@ class SearchModel:
 	#the sons of this class according to the type of search
 	#that the programer implements
 	def show_tree_graph(self):
-		nx.write_dot(self.tree_graph,'test.dot')
-		pos=nx.graphviz_layout(self.tree_graph,prog='dot')
+		write_dot(self.tree_graph,'test.dot')
+		pos=graphviz_layout(self.tree_graph,prog='dot')
 		nx.draw(self.tree_graph,pos,with_labels=True,arrows=False)
 
 		for i in nx.nodes(self.tree_graph):
