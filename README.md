@@ -20,7 +20,7 @@ PyQt4 (GUI), matplotlib, networkx, python-pygraphviz (graphical Tree representat
 
 > python Main.py
 
-# Descrition other Files
+# Other Files
 * **env.txt** it's a plain text file that describes the environment on witch the robot "R" have to be moved by the selected search algoritm.
-* **test.dot** is a file that use de library python-pygraphviz to represent the tree in text manner.
+* **test.dot** is a file that use python-pygraphviz to represent the search tree in a text manner.
 
