@@ -1,6 +1,6 @@
 import sys
 from PyQt4.QtGui import *
-from Window import Window
+from app.Window import Window
 
 if __name__ == '__main__':
 	app = QApplication( sys.argv )

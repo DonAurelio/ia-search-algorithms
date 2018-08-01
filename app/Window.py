@@ -7,7 +7,7 @@ from LoadFile import LoadFile
 from Robot import Robot
 from SearchModel import SearchModel
 
-D_ASearchValues_UI_class, D_AsearchValues_UI_Base_class = uic.loadUiType('gui/DialogASearchValues.ui')
+D_ASearchValues_UI_class, D_AsearchValues_UI_Base_class = uic.loadUiType('app/gui/DialogASearchValues.ui')
 
 class DialogASearchValues(QDialog,D_ASearchValues_UI_class):
 
@@ -31,7 +31,7 @@ class DialogASearchValues(QDialog,D_ASearchValues_UI_class):
 		self.reject()
 
 
-D_Message_UI_class, D_Message_UI_Base_class = uic.loadUiType('gui/DialogMessage.ui')
+D_Message_UI_class, D_Message_UI_Base_class = uic.loadUiType('app/gui/DialogMessage.ui')
 
 class DialogMessage(QDialog,D_Message_UI_class):
 
@@ -41,7 +41,7 @@ class DialogMessage(QDialog,D_Message_UI_class):
 		self.plainTextEditMessage.setPlainText(message)
 		self.exec_()
 
-D_Option_UI_class, D_Option_UI_Base_class = uic.loadUiType('gui/DialogOption.ui')
+D_Option_UI_class, D_Option_UI_Base_class = uic.loadUiType('app/gui/DialogOption.ui')
 
 class DialogOption(QDialog,D_Option_UI_class):
 
@@ -69,7 +69,7 @@ class DialogOption(QDialog,D_Option_UI_class):
 
 
 
-D_Editor_UI_class, D_Editor_UI_Base_class = uic.loadUiType('gui/DialogEnvironmentEditor.ui')
+D_Editor_UI_class, D_Editor_UI_Base_class = uic.loadUiType('app/gui/DialogEnvironmentEditor.ui')
 
 class DialogEnvironmentEditor(QDialog,D_Editor_UI_class):
 
@@ -172,7 +172,7 @@ class DialogEnvironmentEditor(QDialog,D_Editor_UI_class):
 
 
 
-M_Window_UI_class,M_Window_UI_Base_class = uic.loadUiType('gui/MainWindow.ui')
+M_Window_UI_class,M_Window_UI_Base_class = uic.loadUiType('app/gui/MainWindow.ui')
 
 class Window(QMainWindow,M_Window_UI_class,Observer):
 
